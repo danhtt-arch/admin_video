@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Đăng nhập — VideoAdmin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo"><span class="logo-mark"><i class="fa-solid fa-play"></i></span> VideoAdmin</div>
+      <h2 class="auth-title">Đăng nhập</h2>
+      <p class="auth-subtitle">Chào mừng trở lại! Vui lòng đăng nhập để tiếp tục.</p>
+
+      <div id="auth-alert" class="auth-alert hidden" role="alert"></div>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input class="form-control" type="email" id="email" name="email" placeholder="admin1@gmail.com" required autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label for="password">Mật khẩu</label>
+          <input class="form-control" type="password" id="password" name="password" placeholder="••••••" required autocomplete="current-password" />
+        </div>
+        <div class="auth-links"><a href="forgot-password.html">Quên mật khẩu?</a></div>
+        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module">
+    import { initLoginPage } from "./js/auth.js";
+    initLoginPage();
+  </script>
+</body>
+</html>

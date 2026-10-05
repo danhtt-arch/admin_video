@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Videos — VideoAdmin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+  <div class="page-loader" id="page-loader"><div class="spinner"></div></div>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <div class="main-wrapper">
+      <header class="header" id="header"></header>
+      <main class="content">
+        <div class="page-header">
+          <div>
+            <h2>Quản lý Video</h2>
+            <p>Thêm, chỉnh sửa và xóa video trong hệ thống.</p>
+          </div>
+          <button class="btn btn-primary" id="btn-add"><i class="fa-solid fa-plus"></i> Thêm video</button>
+        </div>
+
+        <div class="card">
+          <div class="toolbar">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="search" id="search-input" class="form-control" placeholder="Tìm theo tên video..." />
+            </div>
+            <select id="category-filter" class="form-control">
+              <option value="">Tất cả danh mục</option>
+            </select>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Thumbnail</th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Storage Size</th>
+                  <th>Views</th>
+                  <th class="col-actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="video-body"></tbody>
+            </table>
+          </div>
+
+          <div class="pagination">
+            <span id="page-info"></span>
+            <div class="pagination-controls" id="page-controls"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal Thêm / Sửa -->
+  <div class="modal-overlay" id="video-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="video-modal-title">Thêm video</h3>
+        <button class="btn-icon" data-close-modal aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="video-form" novalidate>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="f-title">Tiêu đề *</label>
+            <input class="form-control" id="f-title" maxlength="255" required />
+          </div>
+          <div class="form-group">
+            <label for="f-description">Mô tả</label>
+            <textarea class="form-control" id="f-description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="f-category">Danh mục</label>
+            <select class="form-control" id="f-category"><option value="">— Chưa phân loại —</option></select>
+          </div>
+          <div class="form-group">
+            <label for="f-thumb">Thumbnail (ảnh)</label>
+            <input class="form-control" type="file" id="f-thumb" accept="image/*" />
+            <div class="preview-box" id="thumb-preview"></div>
+          </div>
+          <div class="form-group">
+            <label>Video *</label>
+            <div class="source-tabs">
+              <button type="button" class="source-tab active" data-source="url">Dùng URL</button>
+              <button type="button" class="source-tab" data-source="file">Tải file lên</button>
+            </div>
+            <input class="form-control" type="url" id="f-video-url" placeholder="https://..." />
+            <input class="form-control hidden" type="file" id="f-video-file" accept="video/*" />
+            <div class="form-hint" id="video-hint"></div>
+          </div>
+          <div class="form-group" id="size-group">
+            <label for="f-size">Dung lượng (MB)</label>
+            <input class="form-control" type="number" id="f-size" min="0" step="0.01" placeholder="0" />
+            <div class="form-hint">Tự động tính khi tải file lên. Nhập thủ công khi dùng URL ngoài.</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close-modal>Hủy</button>
+          <button type="submit" class="btn btn-primary" id="btn-save">Lưu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal xác nhận xóa -->
+  <div class="modal-overlay" id="confirm-modal">
+    <div class="modal modal-sm">
+      <div class="modal-body" style="text-align:center">
+        <div class="confirm-icon"><i class="fa-solid fa-trash"></i></div>
+        <h3 style="margin-bottom:8px">Xóa video?</h3>
+        <p style="color:var(--text-muted)" id="confirm-text"></p>
+      </div>
+      <div class="modal-footer" style="justify-content:center">
+        <button class="btn btn-outline" data-close-modal>Hủy</button>
+        <button class="btn btn-danger" id="btn-confirm-delete">Xóa</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module" src="js/videos.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard — VideoAdmin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <div class="page-loader" id="page-loader"><div class="spinner"></div></div>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+    <div class="main-wrapper">
+      <header class="header" id="header"></header>
+      <main class="content">
+        <div class="page-header">
+          <div>
+            <h2>Tổng quan</h2>
+            <p>Thống kê video, lượt xem và dung lượng lưu trữ.</p>
+          </div>
+        </div>
+
+        <section class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-icon blue"><i class="fa-solid fa-film"></i></div>
+            <div><div class="metric-label">Tổng số video</div><div class="metric-value" id="stat-videos">—</div></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon green"><i class="fa-solid fa-eye"></i></div>
+            <div><div class="metric-label">Tổng lượt xem</div><div class="metric-value" id="stat-views">—</div></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon amber"><i class="fa-solid fa-database"></i></div>
+            <div><div class="metric-label">Dung lượng storage</div><div class="metric-value" id="stat-storage">—</div></div>
+          </div>
+        </section>
+
+        <section class="chart-grid">
+          <div class="card">
+            <div class="card-header"><h3>Top 10 video nhiều lượt xem nhất</h3></div>
+            <div class="card-body">
+              <div class="chart-box">
+                <canvas id="bar-chart"></canvas>
+                <div class="chart-state" id="bar-state"><span class="spinner"></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Lượt xem theo thời gian</h3>
+              <div class="range-tabs">
+                <button class="range-tab active" data-range="day">Theo ngày</button>
+                <button class="range-tab" data-range="month">Theo tháng</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart-box">
+                <canvas id="line-chart"></canvas>
+                <div class="chart-state" id="line-state"><span class="spinner"></span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h3>Video mới tải lên gần đây</h3>
+            <a href="videos.html">Xem tất cả</a>
+          </div>
+          <ul class="activity-list" id="activity-list">
+            <li class="table-state"><span class="spinner"></span><div>Đang tải...</div></li>
+          </ul>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
